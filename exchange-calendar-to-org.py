@@ -47,7 +47,7 @@ def main():
 def get_item_text(item):
     text = []
     text.append('** ' + item.subject)
-    text.append('<' + get_org_date(item.start) + '--' + get_org_date(item.end) + '>')
+    text.append('<' + get_org_date(item.start) + '>--<' + get_org_date(item.end) + '>')
     if item.location != None:
         text.append('Location: ' + item.location)
     if item.required_attendees != None or item.optional_attendees != None:
