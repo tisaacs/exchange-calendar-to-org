@@ -29,6 +29,8 @@ The possible options are:
 
 * `org_file`: The path to the org file to write the appointments in. Note this file is overwritten.
 
+* `timezone_string`: The timezone in [this format](https://gist.github.com/pamelafox/986163).
+
 Next, install the requirements (ideally in a virtual environment):
 
 `pip install -r requirements.txt`

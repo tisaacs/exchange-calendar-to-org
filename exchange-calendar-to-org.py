@@ -18,8 +18,9 @@ def main():
     password = config.get('Settings', 'password')
     sync_days = int(config.get('Settings', 'sync_days'))
     org_file_path = config.get('Settings', 'org_file')
+    tz_string = config.get('Settings', 'timezone_string')
 
-    tz = EWSTimeZone.timezone('Europe/London')
+    tz = EWSTimeZone.timezone(tz_string)
 
     credentials = Credentials(username=email, password=password)
 
@@ -38,16 +39,16 @@ def main():
     text.append('* Calendar')
     text.append('\n')
     for item in items:
-        text.append(get_item_text(item))
+        text.append(get_item_text(item, tz))
         text.append('\n')
 
     f = open(org_file_path, 'w')
     f.write(''.join(text))
 
-def get_item_text(item):
+def get_item_text(item, tz):
     text = []
     text.append('** ' + item.subject)
-    text.append('<' + get_org_date(item.start) + '>--<' + get_org_date(item.end) + '>')
+    text.append('<' + get_org_date(item.start.astimezone(tz)) + '>--<' + get_org_date(item.end.astimezone(tz)) + '>')
     if item.location != None:
         text.append('Location: ' + item.location)
     if item.required_attendees != None or item.optional_attendees != None:
