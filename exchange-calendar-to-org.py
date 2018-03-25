@@ -28,8 +28,13 @@ def main():
 
     credentials = Credentials(username=email, password=password)
 
-    account = Account(primary_smtp_address=email, credentials=credentials,
-                    autodiscover=True, access_type=DELEGATE)
+    if server_url is None:
+        account = Account(primary_smtp_address=email, credentials=credentials,
+                          autodiscover=True, access_type=DELEGATE)
+    else:
+        server = Configuration(server=server_url, credentials=credentials)
+        account = Account(primary_smtp_address=email, config=server,
+                          autodiscover=False, access_type=DELEGATE)
 
     now = datetime.datetime.now()
     end = now + datetime.timedelta(days=sync_days)
