@@ -62,20 +62,20 @@ def get_item_text(item, tz):
     text.append('** ' + item.subject)
     text.append('<' + get_org_date(item.start.astimezone(tz)) +
                 '>--<' + get_org_date(item.end.astimezone(tz)) + '>')
-    if item.location != None:
+    if item.location is not None:
         text.append('Location: ' + item.location)
-    if item.required_attendees != None or item.optional_attendees != None:
+    if item.required_attendees is not None or item.optional_attendees is not None:
         text.append('Attendees:')
 
-    if item.required_attendees != None:
+    if item.required_attendees is not None:
         for person in item.required_attendees:
             text.append('- ' + str(person.mailbox.name))
 
-    if item.optional_attendees != None:
+    if item.optional_attendees is not None:
         for person in item.optional_attendees:
             text.append('- ' + str(person.mailbox.name))
 
-    if item.body != None:
+    if item.body is not None:
         text.append('')
         text.append('*** Information')
         text.append(html2text.html2text(item.body).replace('\n\n', '\n'))
