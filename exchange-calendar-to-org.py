@@ -9,12 +9,16 @@ import datetime
 import os
 
 def main():
-    config_file_path = os.path.dirname(os.path.realpath(__file__)) + '\exchange-calendar-to-org.cfg'
+    config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'exchange-calendar-to-org.cfg')
 
     config = configparser.ConfigParser()
     config.read(config_file_path)
 
     email = config.get('Settings', 'email')
+    try:
+        server_url = config.get('Settings', 'server_url')
+    except KeyError:
+        server_url = None
     password = config.get('Settings', 'password')
     sync_days = int(config.get('Settings', 'sync_days'))
     org_file_path = config.get('Settings', 'org_file')
