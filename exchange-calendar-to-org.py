@@ -8,8 +8,10 @@ import html2text
 import datetime
 import os
 
+
 def main():
-    config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'exchange-calendar-to-org.cfg')
+    config_file_path = os.path.join(os.path.dirname(
+        os.path.realpath(__file__)), 'exchange-calendar-to-org.cfg')
 
     config = configparser.ConfigParser()
     config.read(config_file_path)
@@ -54,10 +56,12 @@ def main():
     f = open(org_file_path, 'w')
     f.write(''.join(text))
 
+
 def get_item_text(item, tz):
     text = []
     text.append('** ' + item.subject)
-    text.append('<' + get_org_date(item.start.astimezone(tz)) + '>--<' + get_org_date(item.end.astimezone(tz)) + '>')
+    text.append('<' + get_org_date(item.start.astimezone(tz)) +
+                '>--<' + get_org_date(item.end.astimezone(tz)) + '>')
     if item.location != None:
         text.append('Location: ' + item.location)
     if item.required_attendees != None or item.optional_attendees != None:
@@ -81,6 +85,7 @@ def get_item_text(item, tz):
 
 def get_org_date(date):
     return date.strftime('%Y-%m-%d %a %H:%M')
+
 
 if __name__ == '__main__':
     main()
