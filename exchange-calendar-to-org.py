@@ -19,7 +19,7 @@ def main():
     email = config.get('Settings', 'email')
     try:
         server_url = config.get('Settings', 'server_url')
-    except KeyError:
+    except configparser.NoOptionError:
         server_url = None
     password = config.get('Settings', 'password')
     sync_days = int(config.get('Settings', 'sync_days'))
