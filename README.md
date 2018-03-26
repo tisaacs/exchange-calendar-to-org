@@ -31,6 +31,8 @@ The possible options are:
 
 * `timezone_string`: The timezone in [this format](https://gist.github.com/pamelafox/986163).
 
+* `server_url`: Optional - The URL of the exchange server.
+
 Next, install the requirements (ideally in a virtual environment):
 
 `pip install -r requirements.txt`
