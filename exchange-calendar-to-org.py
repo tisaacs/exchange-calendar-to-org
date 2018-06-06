@@ -60,8 +60,19 @@ def main():
 def get_item_text(item, tz):
     text = []
     text.append('** ' + item.subject)
-    text.append('<' + get_org_date(item.start.astimezone(tz)) +
-                '>--<' + get_org_date(item.end.astimezone(tz)) + '>')
+    start_date = item.start.astimezone(tz)
+    start_date_text = get_org_date(start_date)
+
+    # If the end date is at midnight, the event is an all day event
+    # so we subtract a minute so it doesn't cross the day boundary.
+    # This stops it appearing under both days.
+    end_date = item.end.astimezone(tz)
+    if (end_date.hour == 0 and end_date.minute == 0):
+        end_date = end_date - datetime.timedelta(minutes=1)
+
+    end_date_text = get_org_date(end_date)
+    text.append('<' + start_date_text +
+                '>--<' + end_date_text + '>')
     if item.location is not None:
         text.append('Location: ' + item.location)
     if item.required_attendees is not None or item.optional_attendees is not None:
