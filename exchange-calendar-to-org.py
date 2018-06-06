@@ -10,8 +10,9 @@ import os
 
 
 def main():
-    config_file_path = os.path.join(os.path.dirname(
-        os.path.realpath(__file__)), 'exchange-calendar-to-org.cfg')
+    config_file_path = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        'exchange-calendar-to-org.cfg')
 
     config = configparser.ConfigParser()
     config.read(config_file_path)
@@ -31,20 +32,25 @@ def main():
     credentials = Credentials(username=email, password=password)
 
     if server_url is None:
-        account = Account(primary_smtp_address=email, credentials=credentials,
-                          autodiscover=True, access_type=DELEGATE)
+        account = Account(
+            primary_smtp_address=email,
+            credentials=credentials,
+            autodiscover=True,
+            access_type=DELEGATE)
     else:
         server = Configuration(server=server_url, credentials=credentials)
-        account = Account(primary_smtp_address=email, config=server,
-                          autodiscover=False, access_type=DELEGATE)
+        account = Account(
+            primary_smtp_address=email,
+            config=server,
+            autodiscover=False,
+            access_type=DELEGATE)
 
     now = datetime.datetime.now()
     end = now + datetime.timedelta(days=sync_days)
 
     items = account.calendar.filter(
         start__lt=tz.localize(EWSDateTime(end.year, end.month, end.day)),
-        end__gt=tz.localize(EWSDateTime(now.year, now.month, now.day)),
-    )
+        end__gt=tz.localize(EWSDateTime(now.year, now.month, now.day)), )
 
     text = []
     text.append('* Calendar')
@@ -71,8 +77,7 @@ def get_item_text(item, tz):
         end_date = end_date - datetime.timedelta(minutes=1)
 
     end_date_text = get_org_date(end_date)
-    text.append('<' + start_date_text +
-                '>--<' + end_date_text + '>')
+    text.append('<' + start_date_text + '>--<' + end_date_text + '>')
     if item.location is not None:
         text.append('Location: ' + item.location)
     if item.required_attendees is not None or item.optional_attendees is not None:
