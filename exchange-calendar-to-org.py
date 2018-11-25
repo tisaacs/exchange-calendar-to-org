@@ -26,6 +26,7 @@ def main():
     sync_days = int(config.get('Settings', 'sync_days'))
     org_file_path = config.get('Settings', 'org_file')
     tz_string = config.get('Settings', 'timezone_string')
+    sslverify = config.getboolean('Settings', 'verify_ssl')
 
     tz = EWSTimeZone.timezone(tz_string)
 
@@ -38,7 +39,7 @@ def main():
             autodiscover=True,
             access_type=DELEGATE)
     else:
-        server = Configuration(server=server_url, credentials=credentials)
+        server = Configuration(server=server_url, credentials=credentials, verify_ssl=sslverify)
         account = Account(
             primary_smtp_address=email,
             config=server,
