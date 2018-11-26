@@ -1,2 +1,5 @@
 *.cfg
 __pycache__
+
+# Ignore virtual env
+exchange-calendar-to-org/
