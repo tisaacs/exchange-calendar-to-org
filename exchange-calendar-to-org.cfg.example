@@ -2,5 +2,6 @@
 email: your.email@example.com
 password: supersecretpassword
 sync_days: 60
+verify_ssl: True
 org_file: C:\org\Calendar.org
 timezone_string: Europe/London
