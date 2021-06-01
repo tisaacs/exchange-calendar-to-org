@@ -20,4 +20,4 @@ requests==2.20.1
 requests-ntlm==1.0.0
 six==1.10.0
 tzlocal==1.4
-urllib3==1.22
+urllib3==1.26.5
